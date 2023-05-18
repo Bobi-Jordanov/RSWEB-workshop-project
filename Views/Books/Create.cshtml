@@ -1,0 +1,110 @@
+﻿@model MVCBookStore.ViewModels.BookViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Books</h1>
+
+<hr />
+<div class="col-md-10 mx-auto py-4">
+    <div class="card">
+        <div class="card-header bg-primary text-uppercase text-white">
+            <h4>Insert New Books</h4>
+        </div>
+        <div class="card-body">
+            <form enctype="multipart/form-data" asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Title" class="control-label"></label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="YearPublished" class="control-label"></label>
+                            <input asp-for="YearPublished" class="form-control" />
+                            <span asp-validation-for="YearPublished" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="NumPages" class="control-label"></label>
+                            <input asp-for="NumPages" class="form-control" />
+                            <span asp-validation-for="NumPages" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Publisher" class="control-label"></label>
+                            <input asp-for="Publisher" class="form-control" />
+                            <span asp-validation-for="Publisher" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                                <label asp-for="Description" class="control-label"></label>
+                                <input asp-for="Description" class="form-control" />
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="AuthorId" class="control-label"></label>
+                            <select asp-for="AuthorId" class ="form-control" asp-items="ViewBag.AuthorId"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="FrontPageVM" class="control-label"></label>
+                            <div class="custom-file">
+                                <input asp-for="FrontPageVM" class="custom-file-input" id="customFile" />
+                                <label class="custom-file-label" for="customFile"></label>
+                            </div>
+                            <span asp-validation-for="FrontPageVM" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="DownloadUrlVM" class="control-label"></label>
+                            <div class="custom-file">
+                                <input asp-for="DownloadUrlVM" class="custom-file-input" id="customFile" />
+                                <label class="custom-file-label" for="customFile"></label>
+                            </div>
+                            <span asp-validation-for="DownloadUrlVM" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Genres</label>
+                                <select asp-for="Genres" class="form-control js-example-basic-multiple" asp-items="ViewBag.Genres"></select>
+                                <span asp-validation-for="Genres" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:15px 0 15px 0;">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
