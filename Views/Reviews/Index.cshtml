@@ -1,0 +1,64 @@
+﻿@model IEnumerable<MVCBookStore.Models.Review>
+@using Microsoft.AspNetCore.Identity
+@using MVCBookStore.Areas.Identity.Data
+
+@inject SignInManager<MVCBookStoreUser> SignInManager
+@inject UserManager<MVCBookStoreUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Reviews</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Books)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        
+            @if (item.AppUser == @UserManager.GetUserName(User))
+                {
+                    <tr>
+                        <td>
+                            <a asp-action="Details" asp-controller="Books" asp-route-id="@item.Books.Id">
+                                @Html.DisplayFor(modelItem => item.Books.Title)
+                            </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AppUser)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comment)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rating)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+    </tbody>
+</table>

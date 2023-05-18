@@ -1,0 +1,111 @@
+﻿@model MVCBookStore.ViewModels.BookGenresEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit a Book</h1>
+
+<hr />
+<div class="col-md-10 mx-auto py-4">
+    <div class="card">
+        <div class="card-header bg-primary text-uppercase text-white">
+            <h4>Edit Books</h4>
+        </div>
+        <div class="card-body">
+            <form enctype="multipart/form-data" asp-controller="Books" asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Book.Id" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Book.Title" class="control-label"></label>
+                            <input asp-for="Book.Title" class="form-control" />
+                            <span asp-validation-for="Book.Title" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Book.YearPublished" class="control-label"></label>
+                            <input asp-for="Book.YearPublished" class="form-control" />
+                            <span asp-validation-for="Book.YearPublished" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Book.NumPages" class="control-label"></label>
+                            <input asp-for="Book.NumPages" class="form-control" />
+                            <span asp-validation-for="Book.NumPages" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Book.Publisher" class="control-label"></label>
+                            <input asp-for="Book.Publisher" class="form-control" />
+                            <span asp-validation-for="Book.Publisher" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                                <label asp-for="Book.Description" class="control-label"></label>
+                                <input asp-for="Book.Description" class="form-control" />
+                                <span asp-validation-for="Book.Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Book.AuthorId" class="control-label"></label>
+                            <select asp-for="Book.AuthorId" class ="form-control" asp-items="ViewBag.AuthorId"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="FrontPageEVM" class="control-label"></label>
+                            <div class="custom-file">
+                                <input asp-for="FrontPageEVM" class="custom-file-input" id="customFile" />
+                                <label class="custom-file-label" for="customFile"></label>
+                            </div>
+                            <span asp-validation-for="FrontPageEVM" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="DownloadUrlEVM" class="control-label"></label>
+                            <div class="custom-file">
+                                <input asp-for="DownloadUrlEVM" class="custom-file-input" id="customFile" />
+                                <label class="custom-file-label" for="customFile"></label>
+                            </div>
+                            <span asp-validation-for="DownloadUrlEVM" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Genres</label>
+                            <select asp-for="SelectedGenres" class="form-control js-example-basic-multiple" asp-items="Model.GenreList"></select>
+                            <span asp-validation-for="SelectedGenres" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:15px 0 15px 0;">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

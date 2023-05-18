@@ -1,0 +1,62 @@
+﻿@model IEnumerable<MVCBookStore.Models.Books>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Books</h1>
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Insert New Books</a>
+    </p>
+}
+<form asp-controller="Books" asp-action="Index">
+    <p>
+        Title: <input type="text" name="title" />
+        Genre: <input type="text" name="genre" />
+        
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+
+<div class="row row-cols-3 g-3" style="display:flex; justify-content: space-between; ">
+    @foreach(var item in Model){
+        <div class="card" style="margin:10px; width:300px; padding:0px;">
+            <img class="card-img-top" src="~/images/@item.FrontPage" alt="book front page" width="300px" asp-append-version="true"/> 
+            <div class="card-body">
+                <div style="display: flex; flex-direction: column;">
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text"><strong>@Html.DisplayNameFor(model => model.Author):</strong> @Html.DisplayFor(modelItem => item.Author.FullName)</p>
+                    <p class="card-text"><strong>@Html.DisplayNameFor(model => model.YearPublished):</strong> @item.YearPublished</p>
+                    <p class="card-text"><strong>@Html.DisplayNameFor(model => model.NumPages):</strong> @item.NumPages</p>
+                    <p class="card-text"><strong>@Html.DisplayNameFor(model => model.Publisher):</strong> @item.Publisher</p>
+                    <div>
+                        @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin")))
+                        {
+                            <form a asp-action="GetPDF" asp-controller="Books">
+                                <input name="url" type="hidden" value="@item.DownloadUrl">
+                                <button class="btn btn-info" type="submit" value="Download pdf">Download</button><br>
+                            </form>
+                        }
+                    </div>
+                    <div id="spacer" style="width: 200px; height: 25px; margin-right:0px;"></div>
+                    <div class="bottomleft">
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        }
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        }
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    }
+</div>

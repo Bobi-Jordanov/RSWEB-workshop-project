@@ -1,0 +1,47 @@
+﻿@model MVCBookStore.Models.UserBooks
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create My Books</h1>
+<hr />
+<div class="col-md-10 mx-auto py-4">
+    <div class="card">
+        <div class="card-header bg-primary text-uppercase text-white">
+            <h4>Insert new User Books</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="BooksId" class="control-label">Book Title</label>
+                            <select asp-for="BooksId" class ="form-control" asp-items="ViewBag.BooksId"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="AppUser" class="control-label"></label>
+                            <input asp-for="AppUser" class="form-control" />
+                            <span asp-validation-for="AppUser" class="text-danger"></span>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="form-group" style="margin:15px 0 15px 0;">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
